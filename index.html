@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Be My Valentine?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #ff9a9e, #fecfef);
+      overflow: hidden;
+    }
+
+    .couple-photo {
+      width: 220px;
+      height: auto;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      color: #fff;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      margin-bottom: 30px;
+      text-align: center;
+      padding: 0 16px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    button {
+      border: none;
+      padding: 12px 28px;
+      border-radius: 999px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    #yes-btn {
+      background: #ff4b6e;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    #yes-btn:hover {
+      transform: scale(1.08);
+      background: #ff264f;
+    }
+
+    #no-btn {
+      background: #ffffff;
+      color: #ff4b6e;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    #message {
+      margin-top: 25px;
+      font-size: 18px;
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+      display: none;
+      text-align: center;
+      max-width: 320px;
+      padding: 0 16px;
+    }
+  </style>
+</head>
+<body>
+  <!-- your photo together -->
+  <img src="us.jpeg" alt="Us together" class="couple-photo" />
+
+  <h1>Will you be a doll and be my Valentine? 💘</h1>
+
+  <div class="buttons">
+    <button id="yes-btn">Yes</button>
+    <button id="no-btn">No</button>
+  </div>
+
+  <div id="message">Knew your fine ass would say yes! 🥰<br>Can’t wait for our date cutie pie. I lovee Youuuu❤️</div>
+
+  <script>
+    const yesBtn = document.getElementById('yes-btn');
+    const noBtn = document.getElementById('no-btn');
+    const msg = document.getElementById('message');
+
+    yesBtn.addEventListener('click', () => {
+      msg.style.display = 'block';
+    });
+
+    // circle around center
+    const radius = 80;
+    let angle = 0;
+    const triggerDistance = 90;
+
+    function moveNoButton(e) {
+      const rect = noBtn.getBoundingClientRect();
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      const btnCenterX = rect.left + rect.width / 2;
+      const btnCenterY = rect.top + rect.height / 2;
+
+      const distX = mouseX - btnCenterX;
+      const distY = mouseY - btnCenterY;
+      const distance = Math.sqrt(distX * distX + distY * distY);
+
+      if (distance < triggerDistance) {
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+
+        angle += Math.PI / 6;
+        const newX = centerX + radius * Math.cos(angle);
+        const newY = centerY + radius * Math.sin(angle);
+
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = newX + 'px';
+        noBtn.style.top = newY + 'px';
+        noBtn.style.transform = 'translate(-50%, -50%)';
+      }
+    }
+
+    document.addEventListener('mousemove', moveNoButton);
+  </script>
+</body>
+</html>
